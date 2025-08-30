@@ -1,0 +1,3 @@
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
+const data=[{name:'Jan',issues:30},{name:'Feb',issues:50},{name:'Mar',issues:20},{name:'Apr',issues:60},{name:'May',issues:40}]
+export default function Graph(){return (<div className='p-6'><h1 className='text-2xl font-semibold mb-4'>Graphical Reports</h1><div className='bg-white rounded shadow p-4'><ResponsiveContainer width='100%' height={300}><LineChart data={data}><Line type='monotone' dataKey='issues' stroke='#0b63d8' strokeWidth={3} /><CartesianGrid stroke='#eee' /><XAxis dataKey='name' /><YAxis /><Tooltip /></LineChart></ResponsiveContainer></div></div>)}
