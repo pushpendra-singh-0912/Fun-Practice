@@ -3706,7 +3706,7 @@
 
 // export default Dashboard;
 
-// =============================================================================try to get more updated
+// =============================================================================try to get more updated below dashboard is perfect for us no problem
 
 import React, { useState } from "react";
 import { Menu, Bell, X } from "lucide-react";
@@ -3730,7 +3730,7 @@ const Dashboard = () => {
       <div className="hidden md:block">
         <div className="flex h-screen bg-gray-100">
           {/* Sidebar */}
-          <Sidebar />
+          {/* <Sidebar /> */}
 
           {/* Mobile Sidebar */}
           {/* Mobile Sidebar (only shows when isSidebarOpen = true) */}
@@ -3936,18 +3936,20 @@ const Dashboard = () => {
       </div>
 
       {/* ================= MOBILE (NEW, DOES NOT TOUCH DESKTOP) ================= */}
+
       <div className="block md:hidden bg-gray-100 min-h-screen p-4">
+        {/* alag alga comment kara hai 3 se 4 bar m  */}
         {/* Top bar (Hamburger - Logo - Bell) */}
-        <div className="flex items-center justify-between mb-4">
-          {/* <button aria-label="open menu">
+        {/* <div className="flex items-center justify-between mb-4">
+          <button aria-label="open menu">
             <Menu className="w-6 h-6 text-gray-700" />
-          </button> */}
+          </button>
           <button
             className="md:hidden p-2"
             onClick={() => setIsSidebarOpen(true)}
-          >
-            {/* you can use lucide-react Menu icon or your current one */}
-            <svg
+          > */}
+        {/* you can use lucide-react Menu icon or your current one */}
+        {/* <svg
               className="w-6 h-6"
               fill="none"
               stroke="currentColor"
@@ -3960,16 +3962,28 @@ const Dashboard = () => {
                 d="M4 6h16M4 12h16M4 18h16"
               />
             </svg>
-          </button>
+          </button> */}
+        {/* handle image in phone wihth respective to sidebar */}
 
+        {/* (
           <img src={QcopLogo} alt="QCOP Logo" className="h-10 object-contain" />
+          ) */}
+
+        {/* {!isSidebarOpen && (
+            <img
+              src={QcopLogo}
+              alt="QCOP Logo"
+              className="h-10 object-contain"
+            />
+          )}
+
           <button aria-label="notifications">
             <Bell className="w-6 h-6 text-gray-700" />
           </button>
-        </div>
+        </div> */}
 
         {/* Search bar with clear */}
-        <div className="flex items-center bg-white rounded-full px-3 py-2 mb-4 shadow">
+        {/* <div className="flex items-center bg-white rounded-full px-3 py-2 mb-4 shadow">
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -3985,10 +3999,10 @@ const Dashboard = () => {
               <X className="w-5 h-5 text-gray-300" />
             </button>
           )}
-        </div>
+        </div> */}
 
         {/* ================= MOBILE SIDEBAR OVERLAY ================= */}
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {isSidebarOpen && (
             <motion.div
               initial={{ x: "-100%" }}
@@ -3998,20 +4012,20 @@ const Dashboard = () => {
               className="fixed inset-0 z-50 md:hidden"
               onClick={() => setIsSidebarOpen(false)} // Close sidebar on outside click
             >
-              {/* Sidebar */}
+              Sidebar
               <motion.div
                 initial={{ x: "-100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "-100%" }}
                 transition={{ duration: 0.3 }}
-                className="relative h-full w-64 bg-white shadow-lg"
+                className="relative h-full w-[55%] bg-white shadow-lg"
                 onClick={(e) => e.stopPropagation()} // Prevent clicks on sidebar from closing it
               >
                 <Sidebar />
               </motion.div>
             </motion.div>
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
 
         {/* Mobile Cards arrangement (as you asked) */}
 
