@@ -1,0 +1,302 @@
+[
+  {
+    "id": 1,
+    "project": "Project Alpha",
+    "loginName": "john.doe",
+    "name": "John Doe",
+    "accessRight": "Admin",
+    "tabId": "TAB-101",
+    "appVersion": "v1.0.5",
+    "lastConnect": "2025-08-20 10:32 AM"
+  },
+  {
+    "id": 2,
+    "project": "Project Alpha",
+    "loginName": "jane.smith",
+    "name": "Jane Smith",
+    "accessRight": "Maker",
+    "tabId": "TAB-102",
+    "appVersion": "v1.0.6",
+    "lastConnect": "2025-08-21 11:12 AM"
+  },
+  {
+    "id": 3,
+    "project": "Project Beta",
+    "loginName": "mike.ross",
+    "name": "Mike Ross",
+    "accessRight": "Checker",
+    "tabId": "TAB-201",
+    "appVersion": "v1.0.5",
+    "lastConnect": "2025-08-18 09:45 AM"
+  },
+  {
+    "id": 4,
+    "project": "Project Beta",
+    "loginName": "harvey.specter",
+    "name": "Harvey Specter",
+    "accessRight": "Approver",
+    "tabId": "TAB-202",
+    "appVersion": "v1.1.0",
+    "lastConnect": "2025-08-19 08:55 AM"
+  },
+  {
+    "id": 5,
+    "project": "Project Gamma",
+    "loginName": "rachel.zane",
+    "name": "Rachel Zane",
+    "accessRight": "Site Admin",
+    "tabId": "TAB-301",
+    "appVersion": "v1.0.8",
+    "lastConnect": "2025-08-22 12:40 PM"
+  },
+  {
+    "id": 6,
+    "project": "Project Gamma",
+    "loginName": "louis.litt",
+    "name": "Louis Litt",
+    "accessRight": "Management",
+    "tabId": "TAB-302",
+    "appVersion": "v1.1.2",
+    "lastConnect": "2025-08-23 02:15 PM"
+  },
+  {
+    "id": 7,
+    "project": "Project Alpha",
+    "loginName": "sam.green",
+    "name": "Sam Green",
+    "accessRight": "Maker",
+    "tabId": "TAB-103",
+    "appVersion": "v1.0.7",
+    "lastConnect": "2025-08-24 03:20 PM"
+  },
+  {
+    "id": 8,
+    "project": "Project Beta",
+    "loginName": "kate.johnson",
+    "name": "Kate Johnson",
+    "accessRight": "Checker",
+    "tabId": "TAB-203",
+    "appVersion": "v1.0.9",
+    "lastConnect": "2025-08-17 04:30 PM"
+  },
+  {
+    "id": 9,
+    "project": "Project Delta",
+    "loginName": "oliver.queen",
+    "name": "Oliver Queen",
+    "accessRight": "Admin",
+    "tabId": "TAB-401",
+    "appVersion": "v1.2.0",
+    "lastConnect": "2025-08-15 07:55 AM"
+  },
+  {
+    "id": 10,
+    "project": "Project Delta",
+    "loginName": "felicity.smoak",
+    "name": "Felicity Smoak",
+    "accessRight": "Approver",
+    "tabId": "TAB-402",
+    "appVersion": "v1.2.1",
+    "lastConnect": "2025-08-16 06:45 AM"
+  },
+  {
+    "id": 11,
+    "project": "Project Alpha",
+    "loginName": "jack.brown",
+    "name": "Jack Brown",
+    "accessRight": "Maker",
+    "tabId": "TAB-104",
+    "appVersion": "v1.0.4",
+    "lastConnect": "2025-08-14 01:10 PM"
+  },
+  {
+    "id": 12,
+    "project": "Project Gamma",
+    "loginName": "emma.wilson",
+    "name": "Emma Wilson",
+    "accessRight": "Site Admin",
+    "tabId": "TAB-303",
+    "appVersion": "v1.1.3",
+    "lastConnect": "2025-08-25 11:00 AM"
+  },
+  {
+    "id": 13,
+    "project": "Project Beta",
+    "loginName": "will.turner",
+    "name": "Will Turner",
+    "accessRight": "Checker",
+    "tabId": "TAB-204",
+    "appVersion": "v1.0.5",
+    "lastConnect": "2025-08-26 08:20 AM"
+  },
+  {
+    "id": 14,
+    "project": "Project Gamma",
+    "loginName": "elizabeth.swann",
+    "name": "Elizabeth Swann",
+    "accessRight": "Approver",
+    "tabId": "TAB-304",
+    "appVersion": "v1.1.1",
+    "lastConnect": "2025-08-27 09:35 AM"
+  },
+  {
+    "id": 15,
+    "project": "Project Delta",
+    "loginName": "tony.stark",
+    "name": "Tony Stark",
+    "accessRight": "Management",
+    "tabId": "TAB-403",
+    "appVersion": "v2.0.0",
+    "lastConnect": "2025-08-10 05:00 PM"
+  },
+  {
+    "id": 16,
+    "project": "Project Beta",
+    "loginName": "bruce.wayne",
+    "name": "Bruce Wayne",
+    "accessRight": "Admin",
+    "tabId": "TAB-205",
+    "appVersion": "v1.0.6",
+    "lastConnect": "2025-08-09 03:50 PM"
+  },
+  {
+    "id": 17,
+    "project": "Project Alpha",
+    "loginName": "clark.kent",
+    "name": "Clark Kent",
+    "accessRight": "Maker",
+    "tabId": "TAB-105",
+    "appVersion": "v1.0.5",
+    "lastConnect": "2025-08-11 04:15 PM"
+  },
+  {
+    "id": 18,
+    "project": "Project Gamma",
+    "loginName": "diana.prince",
+    "name": "Diana Prince",
+    "accessRight": "Site Admin",
+    "tabId": "TAB-305",
+    "appVersion": "v1.1.0",
+    "lastConnect": "2025-08-12 09:25 AM"
+  },
+  {
+    "id": 19,
+    "project": "Project Delta",
+    "loginName": "barry.allen",
+    "name": "Barry Allen",
+    "accessRight": "Checker",
+    "tabId": "TAB-404",
+    "appVersion": "v2.0.1",
+    "lastConnect": "2025-08-13 07:40 AM"
+  },
+  {
+    "id": 20,
+    "project": "Project Alpha",
+    "loginName": "arthur.curry",
+    "name": "Arthur Curry",
+    "accessRight": "Approver",
+    "tabId": "TAB-106",
+    "appVersion": "v1.0.7",
+    "lastConnect": "2025-08-05 02:55 PM"
+  },
+  {
+    "id": 21,
+    "project": "Project Beta",
+    "loginName": "peter.parker",
+    "name": "Peter Parker",
+    "accessRight": "Maker",
+    "tabId": "TAB-206",
+    "appVersion": "v1.0.8",
+    "lastConnect": "2025-08-07 12:05 PM"
+  },
+  {
+    "id": 22,
+    "project": "Project Gamma",
+    "loginName": "steve.rogers",
+    "name": "Steve Rogers",
+    "accessRight": "Approver",
+    "tabId": "TAB-306",
+    "appVersion": "v1.1.4",
+    "lastConnect": "2025-08-06 11:45 AM"
+  },
+  {
+    "id": 23,
+    "project": "Project Delta",
+    "loginName": "natasha.romanoff",
+    "name": "Natasha Romanoff",
+    "accessRight": "Management",
+    "tabId": "TAB-405",
+    "appVersion": "v2.1.0",
+    "lastConnect": "2025-08-08 09:50 AM"
+  },
+  {
+    "id": 24,
+    "project": "Project Alpha",
+    "loginName": "wanda.maximoff",
+    "name": "Wanda Maximoff",
+    "accessRight": "Site Admin",
+    "tabId": "TAB-107",
+    "appVersion": "v1.0.9",
+    "lastConnect": "2025-08-04 08:00 AM"
+  },
+  {
+    "id": 25,
+    "project": "Project Beta",
+    "loginName": "vision",
+    "name": "Vision",
+    "accessRight": "Admin",
+    "tabId": "TAB-207",
+    "appVersion": "v1.0.6",
+    "lastConnect": "2025-08-03 06:25 PM"
+  },
+  {
+    "id": 26,
+    "project": "Project Gamma",
+    "loginName": "bucky.barnes",
+    "name": "Bucky Barnes",
+    "accessRight": "Checker",
+    "tabId": "TAB-307",
+    "appVersion": "v1.1.2",
+    "lastConnect": "2025-08-02 07:10 PM"
+  },
+  {
+    "id": 27,
+    "project": "Project Delta",
+    "loginName": "sam.wilson",
+    "name": "Sam Wilson",
+    "accessRight": "Maker",
+    "tabId": "TAB-406",
+    "appVersion": "v2.0.2",
+    "lastConnect": "2025-08-01 10:35 AM"
+  },
+  {
+    "id": 28,
+    "project": "Project Alpha",
+    "loginName": "tchalla",
+    "name": "T'Challa",
+    "accessRight": "Approver",
+    "tabId": "TAB-108",
+    "appVersion": "v1.0.7",
+    "lastConnect": "2025-07-31 01:25 PM"
+  },
+  {
+    "id": 29,
+    "project": "Project Gamma",
+    "loginName": "shuri",
+    "name": "Shuri",
+    "accessRight": "Maker",
+    "tabId": "TAB-308",
+    "appVersion": "v1.1.5",
+    "lastConnect": "2025-07-30 11:15 AM"
+  },
+  {
+    "id": 30,
+    "project": "Project Delta",
+    "loginName": "scott.lang",
+    "name": "Scott Lang",
+    "accessRight": "Site Admin",
+    "tabId": "TAB-407",
+    "appVersion": "v2.0.3",
+    "lastConnect": "2025-07-29 09:00 AM"
+  }
+]

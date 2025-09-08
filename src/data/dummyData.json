@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "Name": "Alice Johnson",
+    "DeviceID": "DEV-1001",
+    "TabID": 1001,
+    "Locked": false,
+    "AccessRight": "Admin"
+  },
+  {
+    "id": 2,
+    "Name": "Brian Smith",
+    "DeviceID": "DEV-1002",
+    "TabID": 1002,
+    "Locked": false,
+    "AccessRight": "Manager"
+  },
+  {
+    "id": 3,
+    "Name": "Catherine Lee",
+    "DeviceID": "DEV-1003",
+    "TabID": 1003,
+    "Locked": false,
+    "AccessRight": "Subcontractor"
+  },
+  {
+    "id": 4,
+    "Name": "David Kim",
+    "DeviceID": "DEV-1004",
+    "TabID": 1004,
+    "Locked": false,
+    "AccessRight": "Management"
+  },
+  {
+    "id": 5,
+    "Name": "Emma Brown",
+    "DeviceID": "DEV-1005",
+    "TabID": 1005,
+    "Locked": false,
+    "AccessRight": "SiteAdmin"
+  },
+  {
+    "id": 6,
+    "Name": "Frank Wilson",
+    "DeviceID": "DEV-1006",
+    "TabID": 1006,
+    "Locked": false,
+    "AccessRight": "Manager"
+  },
+  {
+    "id": 7,
+    "Name": "Grace Miller",
+    "DeviceID": "DEV-1007",
+    "TabID": 1007,
+    "Locked": false,
+    "AccessRight": "Admin"
+  },
+  {
+    "id": 8,
+    "Name": "Henry Davis",
+    "DeviceID": "DEV-1008",
+    "TabID": 1008,
+    "Locked": false,
+    "AccessRight": "Management"
+  },
+  {
+    "id": 9,
+    "Name": "Ivy Clark",
+    "DeviceID": "DEV-1009",
+    "TabID": 1009,
+    "Locked": false,
+    "AccessRight": "Subcontractor"
+  },
+  {
+    "id": 10,
+    "Name": "Jack Lewis",
+    "DeviceID": "DEV-1010",
+    "TabID": 1010,
+    "Locked": false,
+    "AccessRight": "SiteAdmin"
+  },
+  {
+    "id": 11,
+    "Name": "Karen Young",
+    "DeviceID": "DEV-1011",
+    "TabID": 1011,
+    "Locked": false,
+    "AccessRight": "Manager"
+  },
+  {
+    "id": 12,
+    "Name": "Liam Scott",
+    "DeviceID": "DEV-1012",
+    "TabID": 1012,
+    "Locked": false,
+    "AccessRight": "Admin"
+  },
+  {
+    "id": 13,
+    "Name": "Mia Adams",
+    "DeviceID": "DEV-1013",
+    "TabID": 1013,
+    "Locked": false,
+    "AccessRight": "Subcontractor"
+  },
+  {
+    "id": 14,
+    "Name": "Noah Baker",
+    "DeviceID": "DEV-1014",
+    "TabID": 1014,
+    "Locked": false,
+    "AccessRight": "Management"
+  },
+  {
+    "id": 15,
+    "Name": "Olivia Perez",
+    "DeviceID": "DEV-1015",
+    "TabID": 1015,
+    "Locked": false,
+    "AccessRight": "SiteAdmin"
+  },
+  {
+    "id": 16,
+    "Name": "Paul Turner",
+    "DeviceID": "DEV-1016",
+    "TabID": 1016,
+    "Locked": false,
+    "AccessRight": "Admin"
+  },
+  {
+    "id": 17,
+    "Name": "Quincy Hall",
+    "DeviceID": "DEV-1017",
+    "TabID": 1017,
+    "Locked": false,
+    "AccessRight": "Manager"
+  },
+  {
+    "id": 18,
+    "Name": "Rachel King",
+    "DeviceID": "DEV-1018",
+    "TabID": 1018,
+    "Locked": false,
+    "AccessRight": "Subcontractor"
+  },
+  {
+    "id": 19,
+    "Name": "Samuel Wright",
+    "DeviceID": "DEV-1019",
+    "TabID": 1019,
+    "Locked": false,
+    "AccessRight": "Management"
+  },
+  {
+    "id": 20,
+    "Name": "Tina Lopez",
+    "DeviceID": "DEV-1020",
+    "TabID": 1020,
+    "Locked": false,
+    "AccessRight": "SiteAdmin"
+  }
+]

@@ -122,7 +122,7 @@ export default function Layout({ children }) {
         </header>
 
         {/* Content */}
-        <main className="flex-1 p-6 mt-14 md:mt-0 overflow-auto">
+        <main className="flex-1 pt-2 mt-14 md:mt-0 overflow-auto">
           {children}
         </main>
       </div>

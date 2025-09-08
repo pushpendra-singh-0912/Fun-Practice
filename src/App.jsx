@@ -9,6 +9,12 @@ import NotFound from "./pages/NotFound";
 import Report from "./pages/Report";
 import UserManagement from "./pages/UserManagement";
 import Layout from "./Layouts/Layout";
+import UserTabld from "./components/UserMang/UserTabId";
+import UserMapping from "./components/UserMang/UserMapping";
+import UserVersionList from "./components/UserMang/UserVersionList";
+import ProjectDetail from "./components/UserMang/ProjectDetail";
+import ProjectLevelDetails from "./components/UserMang/ProjectLevelDetails";
+import ManageContractors from "./components/UserMang/ManageContractors";
 // import { User } from "lucide-react";
 export default function App() {
   return (
@@ -33,15 +39,60 @@ export default function App() {
         }
       />
 
-      {/* <Route
-        path="/siteadmin/usermanagement
-"
+      <Route
+        path="/siteadmin/tabidmapping"
         element={
-          <DashboardLayout>
-            <UserManagement />
-          </DashboardLayout>
+          <Layout>
+            <UserTabld />
+          </Layout>
         }
-      /> */}
+      />
+
+      <Route
+        path="/siteadmin/usermapping"
+        element={
+          <Layout>
+            <UserMapping />
+          </Layout>
+        }
+      />
+
+      <Route
+        path="/siteadmin/userversionlist"
+        element={
+          <Layout>
+            <UserVersionList />
+          </Layout>
+        }
+      />
+
+      <Route
+        path="/siteadmin/projectdetail"
+        element={
+          <Layout>
+            <ProjectDetail />
+          </Layout>
+        }
+      />
+
+      <Route
+        path="/siteadmin/projectleveldetails"
+        element={
+          <Layout>
+            <ProjectLevelDetails />
+          </Layout>
+        }
+      />
+
+      <Route
+        path="/siteadmin/managecontractors"
+        element={
+          <Layout>
+            <ManageContractors />
+          </Layout>
+        }
+      />
+
       <Route path="/users" element={<Users />} />
       <Route path="/graph" element={<Graph />} />
       <Route path="*" element={<NotFound />} />
