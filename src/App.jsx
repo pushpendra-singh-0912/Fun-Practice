@@ -6,7 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
 import Graph from "./pages/Graph";
 import NotFound from "./pages/NotFound";
-import Report from "./pages/Report";
+import Report from "./components/Table/ReportTable";
 import UserManagement from "./pages/UserManagement";
 import Layout from "./Layouts/Layout";
 import UserTabld from "./components/UserMang/UserTabId";
@@ -15,6 +15,8 @@ import UserVersionList from "./components/UserMang/UserVersionList";
 import ProjectDetail from "./components/UserMang/ProjectDetail";
 import ProjectLevelDetails from "./components/UserMang/ProjectLevelDetails";
 import ManageContractors from "./components/UserMang/ManageContractors";
+import ReportPage from "./pages/ReportPage";
+import ApiTest from "./pages/ApiTest";
 // import { User } from "lucide-react";
 export default function App() {
   return (
@@ -93,6 +95,15 @@ export default function App() {
         }
       />
 
+      <Route
+        path="/graph"
+        element={
+          <Layout>
+            <ApiTest />
+          </Layout>
+        }
+      />
+
       <Route path="/users" element={<Users />} />
       <Route path="/graph" element={<Graph />} />
       <Route path="*" element={<NotFound />} />
@@ -100,7 +111,7 @@ export default function App() {
         path="/Report"
         element={
           <Layout>
-            <Report />
+            <ReportPage />
           </Layout>
         }
       />
