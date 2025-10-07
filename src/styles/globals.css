@@ -1,4 +1,4 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
 @tailwind utilities;
 html,
@@ -9,17 +9,28 @@ body,
 body {
   @apply bg-slate-50 font-sans text-slate-900;
 }
-/* html,
-body {
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden; ❌ this hides horizontal scroll
-} */
-/* Prevent page-level horizontal scrolling everywhere */
 html,
 body,
 #root {
   height: 100%;
-  /* overflow-x: hidden; */
-  /* overflow-x: hidden; no page scroll */
+} */
+
+/* ==================== */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+}
+
+body {
+  @apply bg-slate-50 font-sans text-slate-900;
 }

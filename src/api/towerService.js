@@ -41,12 +41,27 @@
 
 // -------------------------------------
 
+// import axios from "axios";
+
+// // Make sure the API URL matches your backend
+// export const getTowerStatus = async () => {
+//   try {
+//     const res = await axios.get("http://localhost:5000/api/nc-reports/stats");
+//     return res.data;
+//   } catch (err) {
+//     console.error("❌ API Error:", err);
+//     throw err;
+//   }
+// };
+
+// -------------------------------------------
+
 import axios from "axios";
 
-// Make sure the API URL matches your backend
+// Use relative path so Vite proxy forwards it to backend
 export const getTowerStatus = async () => {
   try {
-    const res = await axios.get("http://localhost:5000/nc-reports/stats");
+    const res = await axios.get("/api/nc-reports/stats"); // <-- removed localhost
     return res.data;
   } catch (err) {
     console.error("❌ API Error:", err);

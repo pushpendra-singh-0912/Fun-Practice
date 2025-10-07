@@ -169,7 +169,7 @@ export default function Sidebar({ onCloseSidebar }) {
         </nav>
 
         {/* Bottom Fade */}
-        <div className="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-t from-gray-300 to-transparent pointer-events-none z-10" />
+        {/* <div className="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-t from-gray-300 to-transparent pointer-events-none z-10" /> */}
       </div>
 
       {/* User Profile */}

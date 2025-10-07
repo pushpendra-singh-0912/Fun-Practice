@@ -3611,23 +3611,358 @@
 // }
 // ==============================================================
 
-import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect } from "react";
+// import axios from "axios";
+// import * as XLSX from "xlsx";
+// import { saveAs } from "file-saver";
+
+// export default function ReportTable() {
+//   const [selectedProject, setSelectedProject] = useState("");
+//   const [showFilters, setShowFilters] = useState(false);
+//   const [filters, setFilters] = useState({});
+//   const [showTable, setShowTable] = useState(false);
+//   const [searchQuery, setSearchQuery] = useState("");
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+//   const [allRows, setAllRows] = useState([]);
+
+//   const rowsPerPage = 15;
+//   const projects = ["Project A", "Project B", "Project C"];
+//   const columns = [
+//     "View Detail",
+//     "Tab Id",
+//     "ChkList ID",
+//     "Location",
+//     "Category",
+//     "Check List",
+//     "Check Point",
+//     "Observation",
+//     "Severity",
+//     "Rectifiable",
+//     "Root Cause",
+//     "Correction",
+//     "Corrective Action",
+//     "Latest Notes",
+//     "Contractor",
+//     "Latest Status",
+//     "Last Chkd By",
+//     "Originated Date",
+//     "Server Originated Date",
+//     "Last Updated",
+//     "Server Last Updated",
+//     "Showin3D",
+//     "ReAssign",
+//   ];
+
+//   const fieldMapping = {
+//     "Tab Id": "tab_id",
+//     "ChkList ID": "chklist_id",
+//     Location: "location",
+//     Category: "category",
+//     "Check List": "check_list",
+//     "Check Point": "check_point",
+//     Observation: "observation",
+//     Severity: "severity",
+//     Rectifiable: "rectifiable",
+//     "Root Cause": "root_cause",
+//     Correction: "correction",
+//     "Corrective Action": "corrective_action",
+//     "Latest Notes": "latest_notes",
+//     Contractor: "contractor",
+//     "Latest Status": "latest_status",
+//     "Last Chkd By": "last_chkd_by",
+//     "Originated Date": "originated_date",
+//     "Server Originated Date": "server_originated_date",
+//     "Last Updated": "last_updated",
+//     "Server Last Updated": "server_last_updated",
+//     Showin3D: "showin3d",
+//     ReAssign: "reassign",
+//     "View Detail": "view_detail",
+//   };
+
+//   const statusColors = {
+//     NEW: "bg-gradient-to-r from-green-400 to-green-600 text-white",
+//     COMPLETED: "bg-gradient-to-r from-yellow-400 to-yellow-600 text-white",
+//     CLOSED: "bg-gradient-to-r from-red-400 to-red-600 text-white",
+//     OPEN: "bg-gradient-to-r from-blue-400 to-blue-600 text-white",
+//     REOPEN: "bg-gradient-to-r from-orange-400 to-orange-600 text-white",
+//     APPROVERCLOSED: "bg-gradient-to-r from-pink-400 to-pink-600 text-white",
+//     REJECTED: "bg-gradient-to-r from-gray-400 to-gray-600 text-white",
+//   };
+
+//   useEffect(() => {
+//     if (!showTable) return;
+//     axios
+//       .get("/api/nc-reports")
+//       .then((res) => {
+//         setAllRows(res.data || []);
+//       })
+//       .catch((err) => {
+//         console.error("Error fetching reports:", err);
+//         setAllRows([]);
+//       });
+//   }, [showTable]);
+
+//   let filteredRows = allRows.filter((row) => {
+//     const query = searchQuery.toLowerCase().trim();
+//     const normalSearch = Object.values(row).some((val) =>
+//       String(val).toLowerCase().includes(query)
+//     );
+//     const combination = `${row.tab_id} ${row.chklist_id}`.toLowerCase();
+//     const combinationDash = `${row.tab_id}-${row.chklist_id}`.toLowerCase();
+//     return (
+//       normalSearch ||
+//       combination.includes(query) ||
+//       combinationDash.includes(query)
+//     );
+//   });
+
+//   // Sorting
+//   if (sortConfig.key) {
+//     filteredRows = [...filteredRows].sort((a, b) => {
+//       const aVal = a[sortConfig.key] ?? "";
+//       const bVal = b[sortConfig.key] ?? "";
+//       if (aVal < bVal) return sortConfig.direction === "asc" ? -1 : 1;
+//       if (aVal > bVal) return sortConfig.direction === "asc" ? 1 : -1;
+//       return 0;
+//     });
+//   }
+
+//   // Pagination
+//   const indexOfLast = currentPage * rowsPerPage;
+//   const indexOfFirst = indexOfLast - rowsPerPage;
+//   const currentRows = filteredRows.slice(indexOfFirst, indexOfLast);
+//   const totalPages = Math.max(1, Math.ceil(filteredRows.length / rowsPerPage));
+
+//   const handleSort = (col) => {
+//     const key = fieldMapping[col] || col.replace(/\s/g, "");
+//     let direction = "asc";
+//     if (sortConfig.key === key && sortConfig.direction === "asc")
+//       direction = "desc";
+//     setSortConfig({ key, direction });
+//     setCurrentPage(1);
+//   };
+
+//   const getSortIcon = (col) => {
+//     const key = fieldMapping[col] || col.replace(/\s/g, "");
+//     if (sortConfig.key === key)
+//       return sortConfig.direction === "asc" ? "▲" : "▼";
+//     return "⇅";
+//   };
+
+//   const toggleFilters = () => setShowFilters((s) => !s);
+
+//   const exportToExcel = () => {
+//     const dataToExport = filteredRows.map((row) => {
+//       const exportRow = {};
+//       columns.forEach((col) => {
+//         const apiKey = fieldMapping[col];
+//         exportRow[col] = row[apiKey] ?? "-";
+//       });
+//       return exportRow;
+//     });
+
+//     const worksheet = XLSX.utils.json_to_sheet(dataToExport);
+//     worksheet["!cols"] = columns.map((col) => ({
+//       wch:
+//         Math.max(col.length, ...dataToExport.map((r) => r[col]?.length || 0)) +
+//         2,
+//     }));
+
+//     const workbook = XLSX.utils.book_new();
+//     XLSX.utils.book_append_sheet(workbook, worksheet, "Report");
+//     const excelBuffer = XLSX.write(workbook, {
+//       bookType: "xlsx",
+//       type: "array",
+//     });
+//     const data = new Blob([excelBuffer], { type: "application/octet-stream" });
+//     saveAs(data, `${selectedProject || "Report"}_Export.xlsx`);
+//   };
+
+//   return (
+//     <div className="p-4 w-full space-y-4">
+//       <div className="flex flex-wrap gap-2 items-center">
+//         <select
+//           value={selectedProject}
+//           onChange={(e) => {
+//             setSelectedProject(e.target.value);
+//             setShowTable(false);
+//             setSearchQuery("");
+//             setCurrentPage(1);
+//           }}
+//           className="border p-2 rounded shadow-sm"
+//         >
+//           <option value="">Select Project</option>
+//           {projects.map((project, idx) => (
+//             <option key={idx} value={project}>
+//               {project}
+//             </option>
+//           ))}
+//         </select>
+
+//         <button
+//           onClick={() => setShowTable(true)}
+//           disabled={!selectedProject}
+//           className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-5 py-2 rounded-lg shadow transition-all duration-200 disabled:from-gray-400 disabled:to-gray-500"
+//         >
+//           OK
+//         </button>
+
+//         <button
+//           onClick={toggleFilters}
+//           disabled={!selectedProject}
+//           aria-expanded={showFilters}
+//           className="ml-2 flex items-center gap-2 bg-white border rounded px-3 py-2 shadow-sm hover:shadow-md transition"
+//         >
+//           <span className="text-sm font-medium">Filters</span>
+//         </button>
+
+//         <button
+//           onClick={exportToExcel}
+//           disabled={!showTable || filteredRows.length === 0}
+//           className="ml-2 bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-lg shadow transition-all duration-200 disabled:opacity-50"
+//         >
+//           Export to Excel
+//         </button>
+//       </div>
+
+//       {showTable && (
+//         <>
+//           <div className="flex justify-between items-center mt-3">
+//             <input
+//               type="text"
+//               placeholder="🔍 Search..."
+//               value={searchQuery}
+//               onChange={(e) => setSearchQuery(e.target.value)}
+//               className="border px-4 py-2 rounded-lg w-72 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+//             />
+//           </div>
+
+//           <div className="w-[95vw] md:w-[85vw] lg:w-[80vw] overflow-x-auto border rounded shadow mt-2">
+//             <table className="min-w-max border-collapse border text-sm">
+//               <thead className="bg-gray-100">
+//                 <tr>
+//                   {columns.map((col, idx) => (
+//                     <th
+//                       key={idx}
+//                       onClick={() => handleSort(col)}
+//                       className="border px-2 py-2 whitespace-nowrap text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-200 select-none"
+//                     >
+//                       {col}{" "}
+//                       <span className="text-xs ml-1">{getSortIcon(col)}</span>
+//                     </th>
+//                   ))}
+//                 </tr>
+//               </thead>
+//               <tbody>
+//                 {currentRows.length > 0 ? (
+//                   currentRows.map((row, rIdx) => (
+//                     <tr
+//                       key={rIdx}
+//                       className="hover:bg-blue-50 transition-all duration-150"
+//                     >
+//                       {columns.map((col, cIdx) => {
+//                         const apiKey = fieldMapping[col];
+//                         if (col === "Latest Status") {
+//                           return (
+//                             <td key={cIdx} className="border px-2 py-2">
+//                               <span
+//                                 className={`px-2 py-1 rounded-full text-xs font-semibold ${
+//                                   statusColors[
+//                                     (row[apiKey] || "").toUpperCase()
+//                                   ] || "bg-gray-400 text-white"
+//                                 }`}
+//                               >
+//                                 {row[apiKey] || "-"}
+//                               </span>
+//                             </td>
+//                           );
+//                         }
+//                         return (
+//                           <td
+//                             key={cIdx}
+//                             className="border px-2 py-2 whitespace-nowrap"
+//                           >
+//                             {row[apiKey] || "-"}
+//                           </td>
+//                         );
+//                       })}
+//                     </tr>
+//                   ))
+//                 ) : (
+//                   <tr>
+//                     <td
+//                       colSpan={columns.length}
+//                       className="text-center p-4 text-gray-500"
+//                     >
+//                       No records found
+//                     </td>
+//                   </tr>
+//                 )}
+//               </tbody>
+//             </table>
+//           </div>
+
+//           {totalPages > 1 && (
+//             <div className="flex justify-center gap-2 mt-4">
+//               <button
+//                 onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+//                 disabled={currentPage === 1}
+//                 className="px-3 py-1 rounded-lg bg-gray-200 hover:bg-gray-300 transition disabled:opacity-50"
+//               >
+//                 Prev
+//               </button>
+//               {Array.from({ length: totalPages }, (_, i) => (
+//                 <button
+//                   key={i}
+//                   onClick={() => setCurrentPage(i + 1)}
+//                   className={`px-3 py-1 rounded-lg transition ${
+//                     currentPage === i + 1
+//                       ? "bg-blue-500 text-white shadow"
+//                       : "bg-gray-100 hover:bg-gray-200"
+//                   }`}
+//                 >
+//                   {i + 1}
+//                 </button>
+//               ))}
+//               <button
+//                 onClick={() =>
+//                   setCurrentPage((p) => Math.min(p + 1, totalPages))
+//                 }
+//                 disabled={currentPage === totalPages}
+//                 className="px-3 py-1 rounded-lg bg-gray-200 hover:bg-gray-300 transition disabled:opacity-50"
+//               >
+//                 Next
+//               </button>
+//             </div>
+//           )}
+//         </>
+//       )}
+//     </div>
+//   );
+// }
+
+// ==============upper without filtes 30sep upper code is good when i mistanly mess something
+
+// ReportTable.jsx
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 
-export default function ReportTable() {
-  const [selectedProject, setSelectedProject] = useState("");
-  const [showFilters, setShowFilters] = useState(false);
-  const [filters, setFilters] = useState({});
-  const [showTable, setShowTable] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
-  const [allRows, setAllRows] = useState([]);
+/**
+ * Pro ReportTable
+ * - Horizontal scroll (no hidden columns on 100% screen)
+ * - Sticky header
+ * - Scroll edge shadows (left / right)
+ * - Column visibility toggle
+ * - Mobile card view (auto on small screens) + optional toggle
+ * - Search, sort, pagination, export to Excel
+ * - iOS momentum scrolling (WebKit)
+ */
 
-  const rowsPerPage = 15;
-  const projects = ["Project A", "Project B", "Project C"];
+export default function ReportTable() {
+  // ----- column definitions & mapping (kept from your original) -----
   const columns = [
     "View Detail",
     "Tab Id",
@@ -3686,40 +4021,125 @@ export default function ReportTable() {
     CLOSED: "bg-gradient-to-r from-red-400 to-red-600 text-white",
     OPEN: "bg-gradient-to-r from-blue-400 to-blue-600 text-white",
     REOPEN: "bg-gradient-to-r from-orange-400 to-orange-600 text-white",
-    APPROVED: "bg-gradient-to-r from-pink-400 to-pink-600 text-white",
+    APPROVERCLOSED: "bg-gradient-to-r from-pink-400 to-pink-600 text-white",
     REJECTED: "bg-gradient-to-r from-gray-400 to-gray-600 text-white",
   };
 
+  // ----- states -----
+  const [selectedProject, setSelectedProject] = useState("");
+  const [showFilters, setShowFilters] = useState(false);
+  const [filters, setFilters] = useState({});
+  const [showTable, setShowTable] = useState(false);
+
+  const [allRows, setAllRows] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 15;
+
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+
+  // UI helpers
+  const [visibleColumns, setVisibleColumns] = useState(columns.slice()); // which columns are visible
+  const [showColumnToggle, setShowColumnToggle] = useState(false);
+  const [showViewToggle, setShowViewToggle] = useState(false); // show small control to switch
+  const [forceView, setForceView] = useState(null); // null | "table" | "cards"
+
+  // responsive and scroll shadows
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" ? window.innerWidth <= 768 : false
+  );
+  const scrollRef = useRef(null);
+  const [showLeftShadow, setShowLeftShadow] = useState(false);
+  const [showRightShadow, setShowRightShadow] = useState(false);
+
+  // demo projects (replace or keep)
+  const projects = ["Project A", "Project B", "Project C"];
+
+  // ----- effects -----
+  // fetch data when user clicks OK / showTable becomes true
   useEffect(() => {
     if (!showTable) return;
-    axios
-      .get("http://localhost:5000/nc-reports")
-      .then((res) => {
-        setAllRows(res.data || []);
-      })
-      .catch((err) => {
+    let cancel = false;
+    (async () => {
+      try {
+        const res = await axios.get("/api/nc-reports"); // keep your API
+        if (!cancel) {
+          setAllRows(Array.isArray(res.data) ? res.data : []);
+        }
+      } catch (err) {
         console.error("Error fetching reports:", err);
-        setAllRows([]);
-      });
+        if (!cancel) setAllRows([]);
+      }
+    })();
+    return () => {
+      cancel = true;
+    };
   }, [showTable]);
 
-  let filteredRows = allRows.filter((row) => {
-    const query = searchQuery.toLowerCase().trim();
+  // keep shadows correct on mount / resize / data changes
+  useEffect(() => {
+    const el = scrollRef.current;
+    const calcShadows = () => {
+      if (!el) return;
+      setShowLeftShadow(el.scrollLeft > 10);
+      setShowRightShadow(el.scrollWidth - el.clientWidth - el.scrollLeft > 10);
+    };
+    calcShadows();
+
+    // scroll handler
+    const onScroll = () => calcShadows();
+    el?.addEventListener?.("scroll", onScroll);
+
+    // resize handler
+    const onResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      // recalc after layout changes
+      setTimeout(calcShadows, 50);
+    };
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      el?.removeEventListener?.("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [allRows, visibleColumns]);
+
+  // set right shadow if content wider than container
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setTimeout(() => {
+      setShowRightShadow(el.scrollWidth > el.clientWidth + 2);
+    }, 50);
+  }, [allRows, visibleColumns]);
+
+  // ----- derived state & helpers -----
+  // computed filtered rows (search + combination search)
+  const filteredRows = allRows.filter((row) => {
+    const q = searchQuery?.toString().toLowerCase().trim() || "";
+    if (!q) return true;
+    // search across all values
     const normalSearch = Object.values(row).some((val) =>
-      String(val).toLowerCase().includes(query)
+      String(val ?? "")
+        .toLowerCase()
+        .includes(q)
     );
-    const combination = `${row.tab_id} ${row.chklist_id}`.toLowerCase();
-    const combinationDash = `${row.tab_id}-${row.chklist_id}`.toLowerCase();
+    // combination support like "tab_id chklist_id" or "tabid-chklistid"
+    const combination = `${row.tab_id ?? ""} ${
+      row.chklist_id ?? ""
+    }`.toLowerCase();
+    const combinationDash = `${row.tab_id ?? ""}-${
+      row.chklist_id ?? ""
+    }`.toLowerCase();
     return (
-      normalSearch ||
-      combination.includes(query) ||
-      combinationDash.includes(query)
+      normalSearch || combination.includes(q) || combinationDash.includes(q)
     );
   });
 
-  // Sorting
+  // sorting
+  let sortedRows = [...filteredRows];
   if (sortConfig.key) {
-    filteredRows = [...filteredRows].sort((a, b) => {
+    sortedRows.sort((a, b) => {
       const aVal = a[sortConfig.key] ?? "";
       const bVal = b[sortConfig.key] ?? "";
       if (aVal < bVal) return sortConfig.direction === "asc" ? -1 : 1;
@@ -3728,11 +4148,10 @@ export default function ReportTable() {
     });
   }
 
-  // Pagination
+  const totalPages = Math.max(1, Math.ceil(sortedRows.length / rowsPerPage));
   const indexOfLast = currentPage * rowsPerPage;
   const indexOfFirst = indexOfLast - rowsPerPage;
-  const currentRows = filteredRows.slice(indexOfFirst, indexOfLast);
-  const totalPages = Math.max(1, Math.ceil(filteredRows.length / rowsPerPage));
+  const currentRows = sortedRows.slice(indexOfFirst, indexOfLast);
 
   const handleSort = (col) => {
     const key = fieldMapping[col] || col.replace(/\s/g, "");
@@ -3750,23 +4169,31 @@ export default function ReportTable() {
     return "⇅";
   };
 
-  const toggleFilters = () => setShowFilters((s) => !s);
+  // toggle column show/hide
+  const toggleColumn = (col) => {
+    setVisibleColumns((prev) =>
+      prev.includes(col) ? prev.filter((c) => c !== col) : [...prev, col]
+    );
+  };
 
+  // export (only visible + filtered rows)
   const exportToExcel = () => {
-    const dataToExport = filteredRows.map((row) => {
+    const dataToExport = sortedRows.map((row) => {
       const exportRow = {};
-      columns.forEach((col) => {
+      visibleColumns.forEach((col) => {
         const apiKey = fieldMapping[col];
-        exportRow[col] = row[apiKey] ?? "-";
+        exportRow[col] = String(row[apiKey] ?? "-");
       });
       return exportRow;
     });
 
     const worksheet = XLSX.utils.json_to_sheet(dataToExport);
-    worksheet["!cols"] = columns.map((col) => ({
+    worksheet["!cols"] = visibleColumns.map((col) => ({
       wch:
-        Math.max(col.length, ...dataToExport.map((r) => r[col]?.length || 0)) +
-        2,
+        Math.max(
+          col.length,
+          ...dataToExport.map((r) => (r[col] ? r[col].length : 0))
+        ) + 2,
     }));
 
     const workbook = XLSX.utils.book_new();
@@ -3775,13 +4202,28 @@ export default function ReportTable() {
       bookType: "xlsx",
       type: "array",
     });
-    const data = new Blob([excelBuffer], { type: "application/octet-stream" });
-    saveAs(data, `${selectedProject || "Report"}_Export.xlsx`);
+    const blob = new Blob([excelBuffer], { type: "application/octet-stream" });
+    saveAs(blob, `${selectedProject || "Report"}_Export.xlsx`);
   };
 
+  // View mode: auto -> cards on mobile, table on desktop. Force overrides.
+  const useCardView = (() => {
+    if (forceView === "cards") return true;
+    if (forceView === "table") return false;
+    return isMobile; // auto: mobile = cards
+  })();
+
+  // small helper to render a value safely and allow wrapping
+  const renderValue = (val) => {
+    if (val === null || typeof val === "undefined") return "-";
+    return String(val);
+  };
+
+  // ----- render -----
   return (
-    <div className="p-4 w-full space-y-4">
-      <div className="flex flex-wrap gap-2 items-center">
+    <div className="p-4 w-full space-y-4 ">
+      {/* Controls top */}
+      <div className="flex flex-wrap gap-3 items-center ">
         <select
           value={selectedProject}
           onChange={(e) => {
@@ -3790,12 +4232,12 @@ export default function ReportTable() {
             setSearchQuery("");
             setCurrentPage(1);
           }}
-          className="border p-2 rounded shadow-sm"
+          className="border p-2 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400"
         >
           <option value="">Select Project</option>
-          {projects.map((project, idx) => (
-            <option key={idx} value={project}>
-              {project}
+          {projects.map((p, i) => (
+            <option key={i} value={p}>
+              {p}
             </option>
           ))}
         </select>
@@ -3803,108 +4245,311 @@ export default function ReportTable() {
         <button
           onClick={() => setShowTable(true)}
           disabled={!selectedProject}
-          className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-5 py-2 rounded-lg shadow transition-all duration-200 disabled:from-gray-400 disabled:to-gray-500"
+          className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-5 py-2 rounded-lg shadow transition-all duration-200 disabled:opacity-50"
         >
           OK
         </button>
 
-        <button
-          onClick={toggleFilters}
+        {/* <button
+          onClick={() => setShowFilters((s) => !s)}
           disabled={!selectedProject}
-          aria-expanded={showFilters}
-          className="ml-2 flex items-center gap-2 bg-white border rounded px-3 py-2 shadow-sm hover:shadow-md transition"
+          className="ml-1 flex items-center gap-2 bg-white border rounded-lg px-3 py-2 shadow-sm hover:shadow-md transition disabled:opacity-50"
         >
-          <span className="text-sm font-medium">Filters</span>
+          Filters
+        </button> */}
+
+        <button
+          onClick={() => setShowColumnToggle((s) => !s)}
+          disabled={!showTable}
+          className="ml-1 px-3 py-2 bg-gray-100 border rounded-lg hover:bg-gray-200 text-sm"
+        >
+          Columns
+        </button>
+
+        <button
+          onClick={() => {
+            setForceView((f) => (f === "cards" ? null : "cards"));
+            setShowViewToggle(true);
+          }}
+          disabled={!showTable}
+          className="ml-1 px-3 py-2 bg-gray-100 border rounded-lg hover:bg-gray-200 text-sm"
+        >
+          Card View
+        </button>
+
+        <button
+          onClick={() => {
+            setForceView((f) => (f === "table" ? null : "table"));
+            setShowViewToggle(true);
+          }}
+          disabled={!showTable}
+          className="ml-1 px-3 py-2 bg-gray-100 border rounded-lg hover:bg-gray-200 text-sm"
+        >
+          Table View
         </button>
 
         <button
           onClick={exportToExcel}
-          disabled={!showTable || filteredRows.length === 0}
-          className="ml-2 bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-lg shadow transition-all duration-200 disabled:opacity-50"
+          disabled={!showTable || sortedRows.length === 0}
+          className="ml-1 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow transition-all duration-200 disabled:opacity-50"
         >
-          Export to Excel
+          Export Excel
         </button>
       </div>
 
+      {/* Column toggle panel */}
+      {showColumnToggle && (
+        <div className="p-3 border rounded-lg bg-gray-50 flex flex-wrap gap-2 md:w-[calc(100%-250px)]">
+          {columns.map((col) => (
+            <label key={col} className="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={visibleColumns.includes(col)}
+                onChange={() => toggleColumn(col)}
+                className="h-4 w-4"
+              />
+              <span className="select-none">{col}</span>
+            </label>
+          ))}
+        </div>
+      )}
+
+      {/* Filters placeholder (you can extend) */}
+      {showFilters && (
+        <div className="p-3 border rounded-lg bg-white">
+          {/* Add your filter controls here (date range, status, contractor etc.) */}
+          <div className="text-sm text-gray-600">
+            Filter UI (extend as needed)
+          </div>
+        </div>
+      )}
+
+      {/* Search */}
+      {showTable && (
+        <div className="flex items-center gap-3">
+          <input
+            type="text"
+            placeholder="🔍 Search (tab id, checklist id, any text...)"
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="border px-4 py-2 rounded-lg w-full md:w-72 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+          />
+          <div className="text-sm text-gray-500">
+            {sortedRows.length} result{sortedRows.length === 1 ? "" : "s"}
+          </div>
+        </div>
+      )}
+
+      {/* Table or Cards */}
       {showTable && (
         <>
-          <div className="flex justify-between items-center mt-3">
-            <input
-              type="text"
-              placeholder="🔍 Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="border px-4 py-2 rounded-lg w-72 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
-            />
-          </div>
+          {/* Table mode */}
+          {!useCardView && (
+            <div className="relative">
+              {/* left shadow */}
+              <div
+                aria-hidden
+                className={`pointer-events-none absolute left-0 top-0 h-full w-10 transition-opacity duration-200 ${
+                  showLeftShadow ? "opacity-100" : "opacity-0"
+                }`}
+                style={{
+                  background:
+                    "linear-gradient(90deg, rgba(0,0,0,0.06), rgba(255,255,255,0))",
+                }}
+              />
+              {/* right shadow */}
+              <div
+                aria-hidden
+                className={`pointer-events-none absolute right-0 top-0 h-full w-10 transition-opacity duration-200 ${
+                  showRightShadow ? "opacity-100" : "opacity-0"
+                }`}
+                style={{
+                  background:
+                    "linear-gradient(270deg, rgba(0,0,0,0.06), rgba(255,255,255,0))",
+                }}
+              />
 
-          <div className="w-[95vw] md:w-[85vw] lg:w-[80vw] overflow-x-auto border rounded shadow mt-2">
-            <table className="min-w-max border-collapse border text-sm">
-              <thead className="bg-gray-100">
-                <tr>
-                  {columns.map((col, idx) => (
-                    <th
-                      key={idx}
-                      onClick={() => handleSort(col)}
-                      className="border px-2 py-2 whitespace-nowrap text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-200 select-none"
-                    >
-                      {col}{" "}
-                      <span className="text-xs ml-1">{getSortIcon(col)}</span>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {currentRows.length > 0 ? (
-                  currentRows.map((row, rIdx) => (
-                    <tr
-                      key={rIdx}
-                      className="hover:bg-blue-50 transition-all duration-150"
-                    >
-                      {columns.map((col, cIdx) => {
-                        const apiKey = fieldMapping[col];
-                        if (col === "Latest Status") {
-                          return (
-                            <td key={cIdx} className="border px-2 py-2">
-                              <span
-                                className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                                  statusColors[
-                                    (row[apiKey] || "").toUpperCase()
-                                  ] || "bg-gray-400 text-white"
-                                }`}
+              <div
+                ref={scrollRef}
+                className="w-f overflow-x-auto border rounded-lg shadow mt-2 bg-white md:w-[calc(100%-250px)]"
+                // enable iOS momentum scrolling
+                style={{
+                  WebkitOverflowScrolling: "touch",
+                  // width: "calc(100% - 250px)",
+                }}
+              >
+                <table className="  min-w-max w-full table-auto text-sm border-collapse">
+                  <thead className="bg-gray-100 sticky top-0 z-20">
+                    <tr>
+                      {visibleColumns.map((col) => (
+                        <th
+                          key={col}
+                          onClick={() => handleSort(col)}
+                          className="border px-3 py-2 whitespace-nowrap text-xs md:text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-200 select-none"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span>{col}</span>
+                            <span className="text-xs text-gray-500">
+                              {getSortIcon(col)}
+                            </span>
+                          </div>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {currentRows.length > 0 ? (
+                      currentRows.map((row, rIdx) => (
+                        <tr
+                          key={rIdx}
+                          className="hover:bg-blue-50 transition-colors duration-150 align-top"
+                        >
+                          {visibleColumns.map((col, cIdx) => {
+                            const apiKey = fieldMapping[col];
+                            // Latest Status -> show badge
+                            if (col === "Latest Status") {
+                              const st = (row[apiKey] || "").toString();
+                              const cls =
+                                statusColors[(st || "").toUpperCase()] ||
+                                "bg-gray-400 text-white";
+                              return (
+                                <td
+                                  key={cIdx}
+                                  className="border px-2 py-2 text-center align-middle"
+                                >
+                                  <span
+                                    className={`px-2 py-1 rounded-full text-xs font-semibold ${cls}`}
+                                  >
+                                    {st || "-"}
+                                  </span>
+                                </td>
+                              );
+                            }
+
+                            // Allow content to wrap in table cells for long text, but trim visually
+                            return (
+                              <td
+                                key={cIdx}
+                                className="border px-3 py-2 align-top max-w-xs break-words"
                               >
-                                {row[apiKey] || "-"}
-                              </span>
-                            </td>
-                          );
-                        }
-                        return (
-                          <td
-                            key={cIdx}
-                            className="border px-2 py-2 whitespace-nowrap"
+                                {renderValue(row[apiKey])}
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan={visibleColumns.length}
+                          className="text-center p-6 text-gray-500"
+                        >
+                          No records found
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {/* Card mode (mobile-like stacked cards) */}
+          {useCardView && (
+            <div className="mt-3">
+              {currentRows.length > 0 ? (
+                currentRows.map((row, idx) => (
+                  <div
+                    key={idx}
+                    className="p-3 mb-3 bg-white rounded-lg shadow-sm border"
+                  >
+                    {/* Top row: primary identifiers + status */}
+                    <div className="flex justify-between items-start gap-3 mb-2">
+                      <div>
+                        <div className="text-sm font-semibold">
+                          {renderValue(row[fieldMapping["Tab Id"]])}
+                          {row[fieldMapping["ChkList ID"]]
+                            ? ` • ${renderValue(
+                                row[fieldMapping["ChkList ID"]]
+                              )}`
+                            : ""}
+                        </div>
+                        <div className="text-xs text-gray-500 mt-1">
+                          {renderValue(row[fieldMapping["Location"]])}
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col items-end gap-1">
+                        <div>
+                          {/* status badge */}
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                              statusColors[
+                                (
+                                  (
+                                    row[fieldMapping["Latest Status"]] || ""
+                                  ).toString() || ""
+                                ).toUpperCase()
+                              ] || "bg-gray-400 text-white"
+                            }`}
                           >
-                            {row[apiKey] || "-"}
-                          </td>
+                            {renderValue(row[fieldMapping["Latest Status"]])}
+                          </span>
+                        </div>
+                        <div className="text-xs text-gray-400">
+                          {renderValue(row[fieldMapping["Originated Date"]])}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* card body: show visible columns as label:value pairs */}
+                    <div className="grid grid-cols-1 gap-1">
+                      {visibleColumns.map((col) => {
+                        // skip showing label twice (we already showed Tab Id, ChkList, Location, Latest Status, Originated Date)
+                        if (
+                          [
+                            "Tab Id",
+                            "ChkList ID",
+                            "Location",
+                            "Latest Status",
+                            "Originated Date",
+                          ].includes(col)
+                        ) {
+                          return null;
+                        }
+                        const apiKey = fieldMapping[col];
+                        return (
+                          <div
+                            key={col}
+                            className="flex justify-between items-start gap-2"
+                          >
+                            <div className="text-xs text-gray-500 w-1/3">
+                              {col}
+                            </div>
+                            <div className="text-sm text-gray-800 w-2/3 break-words">
+                              {renderValue(row[apiKey])}
+                            </div>
+                          </div>
                         );
                       })}
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan={columns.length}
-                      className="text-center p-4 text-gray-500"
-                    >
-                      No records found
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center p-6 text-gray-500">
+                  No records found
+                </div>
+              )}
+            </div>
+          )}
 
+          {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex justify-center gap-2 mt-4">
+            <div className="flex justify-center gap-2 mt-4 flex-wrap">
               <button
                 onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
                 disabled={currentPage === 1}
@@ -3912,6 +4557,7 @@ export default function ReportTable() {
               >
                 Prev
               </button>
+
               {Array.from({ length: totalPages }, (_, i) => (
                 <button
                   key={i}
@@ -3925,6 +4571,7 @@ export default function ReportTable() {
                   {i + 1}
                 </button>
               ))}
+
               <button
                 onClick={() =>
                   setCurrentPage((p) => Math.min(p + 1, totalPages))
@@ -3938,6 +4585,14 @@ export default function ReportTable() {
           )}
         </>
       )}
+
+      {/* small note */}
+      {/* <div className="text-xs text-gray-400">
+        Tip: For very wide reports, use horizontal scroll (desktop) or card view
+        (mobile). You can toggle columns & views above.
+      </div> */}
     </div>
   );
 }
+
+// ====================  upper is my final code

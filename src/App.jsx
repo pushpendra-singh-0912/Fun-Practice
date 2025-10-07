@@ -1,4 +1,9 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Login from "./pages/Login";
 import ResetPassword from "./pages/ResetPassword";
 import UpdatePassword from "./pages/UpdatePassword";
@@ -17,19 +22,31 @@ import ProjectLevelDetails from "./components/UserMang/ProjectLevelDetails";
 import ManageContractors from "./components/UserMang/ManageContractors";
 import ReportPage from "./pages/ReportPage";
 import ApiTest from "./pages/ApiTest";
+import ProtectedRoute from "./routes/ProtectedRoute";
 // import { User } from "lucide-react";
 export default function App() {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
+      {/* previous path or route */}
+      {/* <Route path="/login" element={<Login />} />
       <Route path="/reset-password" element={<ResetPassword />} />
-      <Route path="/update-password" element={<UpdatePassword />} />
+      <Route path="/update-password" element={<UpdatePassword />} /> */}
+
+      <Route path="/" element={<Navigate to="/login" />} />
+      <Route path="/login" element={<Login />} />
+
+      {/* new route with protected route */}
+
+      
+
       <Route
         path="/dashboard"
         element={
-          <Layout>
-            <Dashboard />
-          </Layout>
+          <ProtectedRoute>
+            <Layout>
+              <Dashboard />
+            </Layout>
+          </ProtectedRoute>
         }
       />
       <Route
